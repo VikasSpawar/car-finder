@@ -4,8 +4,10 @@ const CarModal = ({ car, onClose, wishlist, toggleWishlist }) => {
   if (!car) return null;
 
   const isWished = wishlist.some(
-    (item) =>item.id === car.id 
-    
+    (item) =>
+      item.make === car.make &&
+      item.model === car.model &&
+      item.year === car.year
   );
 
   return (

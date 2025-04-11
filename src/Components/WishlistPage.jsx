@@ -4,11 +4,12 @@ import { FaHeart, FaHeartBroken } from "react-icons/fa";
 const WishlistPage = ({  toggleWishlist }) => {
 
     const [wishlist, setWishlist] = useState([]);
+
   useEffect(()=>{
 
     setWishlist(JSON.parse(localStorage.getItem("wishlist")))
 
-  },[])
+  },[wishlist])
 
 
   return (
