@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const CarCard = ({
   car,
@@ -37,10 +37,16 @@ const CarCard = ({
       <h3 className="text-lg font-semibold">
         {car.year} {car.make} {car.model}
       </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-300">
+      <p
+        className="text-sm  
+      text-gray-600 dark:text-gray-300"
+      >
         {car.vehicle_class}
       </p>
-      <p className="text-sm text-gray-500 dark:text-gray-400">
+      <p
+        className="text-sm  
+        text-gray-500 dark:text-gray-400"
+      >
         {car.fueltype} | {car.trany}
       </p>
     </div>

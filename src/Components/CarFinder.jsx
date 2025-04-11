@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaMoon, FaSun, FaHeart, FaRegHeart, FaCar } from "react-icons/fa";
-import CarModal from "./CarModal";
-import { Link } from "react-router";
+import React, { useEffect, useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import CarCard from "./CarCard";
+import CarModal from "./CarModal";
 
-export default function CarFinder() {
+export default function CarFinder({toggleWishlist ,wishlist}) {
   const [cars, setCars] = useState([]);
   const [selectedCar, setSelectedCar] = useState(null);
-  const [wishlist, setWishlist] = useState(() => {
-    const stored = localStorage.getItem("wishlist");
-    return stored ? JSON.parse(stored) : [];
-  });
+
 
   const [filters, setFilters] = useState({
     brand: "",
     fuel_type: "",
     transmission: "",
-    year: "",
+    year: "2016",
   });
 
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark' || savedTheme === null; // true = dark
-  });
+
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const perPage = 12;
 
-  // Build dynamic query
+  
   const buildQuery = (filters) => {
     const parts = [];
 
@@ -41,7 +34,7 @@ export default function CarFinder() {
     return parts.length ? parts.join(" AND ") : "";
   };
 
-  // Fetch cars from API with filters & pagination
+  //  cars from API with filters & pagination
   const fetchCars = async () => {
     setLoading(true);
     try {
@@ -68,70 +61,16 @@ export default function CarFinder() {
     }
   };
 
-  // Initial + refetch on filters or page change
   useEffect(() => {
     fetchCars();
 
-
-
-
-    
   }, [filters, currentPage]);
 
-  useEffect(() => {
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
-    const root = document.documentElement;
 
-    if (darkMode) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [wishlist,darkMode]);
-
-  const toggleWishlist = (car) => {
-    const exists = wishlist.some(
-      (item) =>
-        item.make === car.make &&
-        item.model === car.model &&
-        item.year === car.year
-    );
-    const updated = exists
-      ? wishlist.filter(
-          (item) =>
-            !(
-              item.make === car.make &&
-              item.model === car.model &&
-              item.year === car.year
-            )
-        )
-      : [...wishlist, car];
-
-    setWishlist(updated);
-  };
-
-  // console.log(cars)
   return (
-    <div className={`${darkMode ? "dark" : ""}`}>
+    <div >
       <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className=" flex align-middle text-4xl font-bold text-blue-600 dark:text-blue-400">
-           <FaCar className="text-red-500 mx-1  my-auto " /> Car Finder
-          </h1>
-          <nav className="space-x-4  flex">
-            <Link to="/" className="hover:text-blue-400">
-              Home
-            </Link>
-            <Link to="/wishlist" className="hover:text-blue-400">
-              Wishlist <FaHeart className="inline text-red-500"/>
-            </Link>
-            <button onClick={() => setDarkMode(!darkMode)} className="text-xl  my-auto">
-              {darkMode ? <FaSun /> : <FaMoon />}
-            </button>
-          </nav>
-        </div>
+  
 
         {/* Filters */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
@@ -174,7 +113,7 @@ export default function CarFinder() {
               setFilters({ ...filters, year: e.target.value });
             }}
           >
-            <option defaultValue={2015} value="">Year</option>
+            <option  value="">Year</option>
             {[2015,2016,2017,2018,2019,2020,2021,2022,2023].map((n) => (
               <option key={n} value={n}>
                 {n} 

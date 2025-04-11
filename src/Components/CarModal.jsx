@@ -1,25 +1,25 @@
-import { IoCloseSharp  } from "react-icons/io5";
-
+import { IoCloseSharp } from "react-icons/io5";
 
 const CarModal = ({ car, onClose, wishlist, toggleWishlist }) => {
   if (!car) return null;
 
   const isWished = wishlist.some(
-    (item) => item.make === car.make && item.model === car.model && item.year === car.year
+    (item) =>item.id === car.id 
+    
   );
 
   return (
     <div className="fixed  inset-0 z-40 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center">
       <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-xl p-6 w-[90%] max-w-xl shadow-xl transform scale-95 animate-[zoom_0.3s_ease-out_forwards] relative">
         <button
-          onClick={()=>onClose(null)}
+          onClick={() => onClose(null)}
           className="absolute text-4xl top-1  right-1 text-gray-600  text-red-500"
         >
-      <IoCloseSharp  className="rotate-1" />
+          <IoCloseSharp className="rotate-1" />
         </button>
 
         <img
-          src={'/car-placeholder.jpeg'}
+          src={"/car-placeholder.jpeg"}
           alt={`${car.make} ${car.model}`}
           className="w-full h-64 object-cover rounded-md mb-4"
         />
@@ -36,7 +36,7 @@ const CarModal = ({ car, onClose, wishlist, toggleWishlist }) => {
               : "bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
           }`}
         >
-          {isWished ? "💔 Remove from Wishlist" : "❤️ Add to Wishlist"}
+          {isWished ? " Remove from Wishlist" : " Add to Wishlist"}
         </button>
 
         <div className="space-y-1 text-sm">
@@ -58,5 +58,4 @@ const CarModal = ({ car, onClose, wishlist, toggleWishlist }) => {
   );
 };
 
-
-export default CarModal
+export default CarModal;

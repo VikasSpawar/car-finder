@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaHeartBroken } from "react-icons/fa";
 
 const WishlistPage = ({  toggleWishlist }) => {
 
@@ -12,7 +12,7 @@ const WishlistPage = ({  toggleWishlist }) => {
 
 
   return (
-    <div className="">
+    <div >
       <h2 className="text-2xl font-bold mb-6 flex text-center  "><FaHeart className="my-auto text-red-500 mx-2" /> My Wishlist</h2>
       {wishlist.length === 0 ? (
         <p className="text-gray-600 dark:text-gray-400">No cars in wishlist yet.</p>
@@ -34,7 +34,7 @@ const WishlistPage = ({  toggleWishlist }) => {
                 onClick={() => toggleWishlist(car)}
                 className="mt-3 px-3 py-1 rounded-full text-sm bg-red-600 text-white hover:bg-red-700"
               >
-                Remove 💔
+                Remove <FaHeartBroken className="inline my-auto "/>
               </button>
             </div>
           ))}
